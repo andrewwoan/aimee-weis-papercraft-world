@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Canvas, extend, useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import * as THREE from "three/webgpu";
 import * as TSL from "three/tsl";
@@ -9,30 +10,51 @@ import Scene from "./Scene";
 import ReactLenis from "lenis/react";
 import gsap from "gsap";
 import { useRef } from "react";
+import { useCurveProgressStore } from "../store/useCurveProgressStore";
+import { useGSAP } from "@gsap/react";
 
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 extend(THREE);
 
 const Experience = () => {
-  const lenisRef = useRef();
+  const setScrollProgress = useCurveProgressStore(
+    (state) => state.setScrollProgress,
+  );
+  // const lenisRef = useRef();
+
+  const [lenis, setLenis] = useState(null);
 
   useEffect(() => {
-    function update(time) {
-      lenisRef.current?.lenis?.raf(time * 1000);
-    }
+    const lenisInstance = lenis?.lenis;
+    if (!lenisInstance) return;
 
+    function update(time) {
+      lenisInstance.raf(time * 1000);
+    }
     gsap.ticker.add(update);
 
-    return () => gsap.ticker.remove(update);
-  }, []);
+    const syncScroll = (e) => {
+      ScrollTrigger.update();
+      setScrollProgress(e.progress);
+    };
+
+    lenisInstance.on("scroll", syncScroll);
+
+    return () => {
+      lenisInstance.off("scroll", syncScroll);
+      gsap.ticker.remove(update);
+    };
+  }, [lenis]);
 
   return (
     <>
       <ReactLenis
-        ref={lenisRef}
+        ref={setLenis}
         root
         options={{
           autoRaf: false,
           infinite: true,
+          syncTouch: true,
         }}
       >
         <Canvas
