@@ -4,13 +4,21 @@ import { useFrame, useThree } from "@react-three/fiber";
 import React, { useMemo, useRef } from "react";
 import { useCurveProgressStore } from "../../store/useCurveProgressStore";
 import * as THREE from "three";
+import { PerspectiveCamera } from "@react-three/drei";
 
 const CustomCamera = () => {
-  const { camera } = useThree();
+  const { camera, pointer } = useThree();
   const curves = useCurveProgressStore((state) => state.curves);
   const targetPosition = useRef(new THREE.Vector3(0, 0, 0));
   const currentLookAt = useRef(new THREE.Vector3(0, 0, 0));
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
+
+  const currentPointer = useRef(new THREE.Vector2(0, 0));
+
+  const isInitialLerping = useRef(true);
+
+  const cameraGroupRef = useRef();
+  const cameraRef = useRef();
 
   useFrame(() => {
     const scrollProgressPosition =
@@ -26,13 +34,42 @@ const CustomCamera = () => {
       targetLookAt.current,
     );
 
-    camera.position.lerp(targetPosition.current, 0.1);
+    if (isInitialLerping.current) {
+      cameraGroupRef.current.position.copy(targetPosition.current);
+      cameraGroupRef.current.lookAt(targetLookAt.current);
+      currentLookAt.current.copy(targetLookAt.current);
+
+      isInitialLerping.current = false;
+
+      return;
+    }
+
+    cameraGroupRef.current.position.lerp(targetPosition.current, 0.1);
     currentLookAt.current.lerp(targetLookAt.current, 0.1);
 
-    camera.lookAt(currentLookAt.current);
+    cameraGroupRef.current.lookAt(currentLookAt.current);
+
+    currentPointer.current.lerp(pointer, 0.1);
+
+    cameraRef.current.position.set(
+      currentPointer.current.x * 0.1,
+      currentPointer.current.y * 0.1,
+      0,
+    );
+    cameraRef.current.rotation.set(
+      -currentPointer.current.y * 0.1,
+      -currentPointer.current.x * 0.1 + Math.PI,
+      0,
+    );
   });
 
-  return <></>;
+  return (
+    <>
+      <group ref={cameraGroupRef}>
+        <PerspectiveCamera makeDefault ref={cameraRef} />
+      </group>
+    </>
+  );
 };
 
 export default CustomCamera;
