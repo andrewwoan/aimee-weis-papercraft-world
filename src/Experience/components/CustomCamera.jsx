@@ -23,10 +23,10 @@ const CustomCamera = () => {
   useFrame(() => {
     const scrollProgressPosition =
       useCurveProgressStore.getState().scrollProgress;
-    const offsetScrollCameraPosition = (scrollProgressPosition + 0.5) % 1;
+    // const offsetScrollCameraPosition = (scrollProgressPosition + 0.5) % 1;
 
     curves.cameraPathCurve.getPointAt(
-      offsetScrollCameraPosition,
+      scrollProgressPosition,
       targetPosition.current,
     );
     curves.cameraLookAtCurve.getPointAt(
@@ -38,6 +38,8 @@ const CustomCamera = () => {
       cameraGroupRef.current.position.copy(targetPosition.current);
       cameraGroupRef.current.lookAt(targetLookAt.current);
       currentLookAt.current.copy(targetLookAt.current);
+
+      cameraRef.current.rotation.set(0, Math.PI, 0);
 
       isInitialLerping.current = false;
 
@@ -66,7 +68,7 @@ const CustomCamera = () => {
   return (
     <>
       <group ref={cameraGroupRef}>
-        <PerspectiveCamera makeDefault ref={cameraRef} />
+        <PerspectiveCamera makeDefault fov={50} ref={cameraRef} />
       </group>
     </>
   );

@@ -1,11 +1,10 @@
-// Three.js Curve Data from Blender
-// Exported 3 curves
 import * as THREE from "three";
 
 export const exportedCurves = [
   {
     name: "cameraPathCurve",
     closed: true,
+    startIndex: 12, // <-- Manually edit this index to shift the start point
     points: [
       new THREE.Vector3(4.775683, 1.671652, -8.477468),
       new THREE.Vector3(7.458879, 1.671652, -8.623516),
@@ -33,6 +32,7 @@ export const exportedCurves = [
   {
     name: "movingCharactersCurve",
     closed: true,
+    startIndex: 2, // <-- Manually edit this index to shift the start point
     points: [
       new THREE.Vector3(-0.035392, 0.279338, -10.894051),
       new THREE.Vector3(4.308577, 0.279338, -10.029983),
@@ -55,9 +55,10 @@ export const exportedCurves = [
   {
     name: "cameraLookAtCurve",
     closed: true,
+    startIndex: 1, // <-- Manually edit this index to shift the start point
     points: [
-      new THREE.Vector3(2.750525, 1.97667, -9.114526),
-      new THREE.Vector3(6.201433, 1.97667, -7.31979),
+      new THREE.Vector3(2.776111, 1.97667, -9.089117),
+      new THREE.Vector3(6.857717, 1.97667, -6.779336),
       new THREE.Vector3(8.702841, 1.97667, -4.341067),
       new THREE.Vector3(9.873931, 1.97667, -0.631838),
       new THREE.Vector3(9.536418, 2.527152, 3.243201),
@@ -76,11 +77,17 @@ export const exportedCurves = [
   },
 ];
 
-// Helper to convert data to Three.js Curve objects
 export const createCurves = () => {
   const curves = {};
   exportedCurves.forEach((data) => {
-    const curve = new THREE.CatmullRomCurve3(data.points);
+    let pts = [...data.points];
+    const idx = data.startIndex || 0;
+
+    if (idx > 0 && idx < pts.length) {
+      pts = [...pts.slice(idx), ...pts.slice(0, idx)];
+    }
+
+    const curve = new THREE.CatmullRomCurve3(pts);
     curve.closed = data.closed;
     curves[data.name] = curve;
   });

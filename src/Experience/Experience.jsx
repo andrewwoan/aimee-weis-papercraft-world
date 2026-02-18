@@ -63,7 +63,6 @@ const Experience = () => {
             top: 0,
             left: 0,
           }}
-          camera={{ fov: 50 }}
           flat
           gl={async (props) => {
             const renderer = new THREE.WebGPURenderer({

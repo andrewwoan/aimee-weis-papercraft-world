@@ -23,7 +23,7 @@ const files = fs
   );
 
 files.forEach((file) => {
-  const fileNameNoExt = path.parse(file).name; // e.g., "Scene_4_Fall"
+  const fileNameNoExt = path.parse(file).name;
   const inputFile = path.join(INPUT_DIR, file);
   const tempJsxFile = `${fileNameNoExt}.jsx`;
   const tempGlbFile = `${fileNameNoExt}-transformed.glb`;
@@ -32,7 +32,8 @@ files.forEach((file) => {
 
   try {
     console.log(`\n📦 Processing: ${file}`);
-    execSync(`npx gltfjsx "${inputFile}" -j -M`, { stdio: "inherit" });
+    // Using -T (transform), -j (instance objects), -M (minify)
+    execSync(`npx gltfjsx "${inputFile}" -T -j -M`, { stdio: "inherit" });
 
     if (fs.existsSync(tempGlbFile)) {
       fs.renameSync(tempGlbFile, finalGlbPath);
@@ -44,7 +45,8 @@ files.forEach((file) => {
 
     let importsAdded = false;
     let hooksAdded = false;
-    let currentActiveTextureNum = "1"; // Fallback
+    let currentActiveTextureNum = "1";
+    let activeMeshName = null; // Track the current node across multiple lines
 
     // Prepare Texture Hooks
     const textureHooks = [];
@@ -88,34 +90,60 @@ files.forEach((file) => {
         continue;
       }
 
-      // E. PRECISION MESH LOGIC
+      // E. MESH DETECTION (Multi-line safe)
+      // Look for the node name in the geometry line
       const geoMatch = line.match(/geometry=\{nodes\.(.+?)\.geometry\}/);
       if (geoMatch) {
-        const meshName = geoMatch[1];
+        activeMeshName = geoMatch[1];
 
-        // We escape the fileName (e.g. Scene_4_Fall) and look for the number AFTER it
-        // Pattern: Scene_4_Fall_([1-4])
+        // Handle your specific Texture Number Logic
         const escapedName = fileNameNoExt.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&",
         );
         const precisionRegex = new RegExp(`${escapedName}_([1-4])`);
+        const numMatch = activeMeshName.match(precisionRegex);
 
-        const numMatch = meshName.match(precisionRegex);
         if (numMatch) {
           currentActiveTextureNum = numMatch[1];
-          console.log(
-            `   ✅ Mesh: ${meshName.padEnd(40)} -> texture_${currentActiveTextureNum}`,
+        }
+      }
+
+      // F. TRANSFORMATION REPLACEMENT
+      // Only run if we've identified which node this mesh belongs to
+      if (activeMeshName) {
+        if (line.includes("position={")) {
+          line = line.replace(
+            /position=\{[^}]+\}/,
+            `position={nodes.${activeMeshName}.position}`,
+          );
+        }
+        if (line.includes("rotation={")) {
+          line = line.replace(
+            /rotation=\{[^}]+\}/,
+            `rotation={nodes.${activeMeshName}.rotation}`,
+          );
+        }
+        if (line.includes("scale={")) {
+          line = line.replace(
+            /scale=\{[^}]+\}/,
+            `scale={nodes.${activeMeshName}.scale}`,
           );
         }
       }
 
-      // F. Material Replacement
+      // G. Material Replacement
       if (line.includes("material={")) {
         line = line.replace(
           /material=\{[^}]+\}/,
           `material={texture_${currentActiveTextureNum}}`,
         );
+      }
+
+      // H. RESET STATE
+      // Once we hit the end of a mesh tag, stop applying the activeMeshName
+      if (line.includes("/>")) {
+        activeMeshName = null;
       }
 
       newLines.push(line);
