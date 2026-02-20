@@ -21,6 +21,7 @@ export default function Model(props) {
   const curves = useCurveProgressStore((state) => state.curves);
   const scrollProgress = useCurveProgressStore((state) => state.scrollProgress);
 
+  const targetPosition = useRef(new THREE.Vector3(0, 0, 0));
   const targetLookAt = useRef(new THREE.Vector3(0, 0, 0));
   const upVector = useRef(new THREE.Vector3(0, 1, 0));
 
@@ -37,31 +38,31 @@ export default function Model(props) {
     winterSideCharacterRef: 0.01,
     springFrontCharacterRef: 0.14,
     springSideCharacterRef: 0.14,
-    summerFrontCharacterRef: 0.7,
-    summerWaveRef: 0.7,
-    fallFrontCharacterRef: 0.8,
+    summerFrontCharacterRef: 0.365,
+    summerWaveRef: 0.365,
+    fallFrontCharacterRef: 0.65,
   };
 
   const progressMoveRanges = {
     winter: { start: 0, end: 0.12 },
-    spring: { start: 0.12, end: 0.24 },
-    summer: { start: 0.36, end: 0.48 },
-    fall: { start: 0.48, end: 0.6 },
+    spring: { start: 0.12, end: 0.33 },
+    summer: { start: 0.36, end: 0.6 },
+    fall: { start: 0.65, end: 0.85 },
   };
 
   const moveObjectOrCharacter = (ref, offset, range) => {
     if (!ref.current) return;
-
     const { start, end } = range;
+    if (scrollProgress > end || scrollProgress < start) return;
 
-    const point = curves.movingCharactersCurve.getPointAt(
-      scrollProgress + offset,
-    );
-    const tangent = curves.movingCharactersCurve.getTangentAt(
-      scrollProgress + offset,
-    );
+    const rangeProgress = (scrollProgress - start) / (end - start);
+    const curveValue = offset + rangeProgress * (end - start);
 
-    ref.current.position.copy(point);
+    curves.movingCharactersCurve.getPointAt(curveValue, targetPosition.current);
+
+    const tangent = curves.movingCharactersCurve.getTangentAt(curveValue);
+
+    ref.current.position.lerp(targetPosition.current, 0.1);
 
     targetLookAt.current.crossVectors(tangent, upVector.current);
 

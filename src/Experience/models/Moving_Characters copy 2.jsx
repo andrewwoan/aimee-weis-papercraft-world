@@ -37,16 +37,16 @@ export default function Model(props) {
     winterSideCharacterRef: 0.01,
     springFrontCharacterRef: 0.14,
     springSideCharacterRef: 0.14,
-    summerFrontCharacterRef: 0.7,
-    summerWaveRef: 0.7,
-    fallFrontCharacterRef: 0.8,
+    summerFrontCharacterRef: 0.365,
+    summerWaveRef: 0.365,
+    fallFrontCharacterRef: 0.65,
   };
 
   const progressMoveRanges = {
     winter: { start: 0, end: 0.12 },
-    spring: { start: 0.12, end: 0.24 },
-    summer: { start: 0.36, end: 0.48 },
-    fall: { start: 0.48, end: 0.6 },
+    spring: { start: 0.12, end: 0.33 },
+    summer: { start: 0.36, end: 0.6 },
+    fall: { start: 0.65, end: 0.85 },
   };
 
   const moveObjectOrCharacter = (ref, offset, range) => {
@@ -54,17 +54,18 @@ export default function Model(props) {
 
     const { start, end } = range;
 
-    const point = curves.movingCharactersCurve.getPointAt(
-      scrollProgress + offset,
-    );
-    const tangent = curves.movingCharactersCurve.getTangentAt(
-      scrollProgress + offset,
-    );
+    if (scrollProgress < start || scrollProgress > end) return;
+
+    const rangeProgress = (scrollProgress - start) / (end - start);
+    const curveT = offset + rangeProgress * (end - start);
+
+    console.log(scrollProgress);
+
+    const point = curves.movingCharactersCurve.getPointAt(curveT);
+    const tangent = curves.movingCharactersCurve.getTangentAt(curveT);
 
     ref.current.position.copy(point);
-
     targetLookAt.current.crossVectors(tangent, upVector.current);
-
     ref.current.lookAt(targetLookAt.current);
   };
 
