@@ -70,7 +70,7 @@ const CustomCamera = () => {
   return (
     <>
       <group ref={cameraGroupRef}>
-        <PerspectiveCamera makeDefault fov={50} ref={cameraRef} />
+        <PerspectiveCamera makeDefault fov={50} ref={cameraRef} zoom={1.1} />
       </group>
     </>
   );

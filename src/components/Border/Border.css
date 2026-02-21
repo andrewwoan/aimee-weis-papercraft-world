@@ -1,0 +1,16 @@
+.full-page-border {
+  position: fixed;
+  inset: 0px;
+
+  border: 4px dashed #e5e5e5;
+  /* border-radius: 40px; */
+  background-image: radial-gradient(
+    circle,
+    transparent 70%,
+    rgba(13, 13, 13, 0.4) 180%
+  );
+
+  pointer-events: none;
+
+  z-index: 9999;
+}

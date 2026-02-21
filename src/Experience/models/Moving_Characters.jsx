@@ -17,7 +17,9 @@ export default function Model(props) {
     "/models/Moving_Characters-transformed.glb",
   );
 
-  const texture_1 = useKTX2Texture("/textures/Moving_Characters_1.webp");
+  const texture_1 = useKTX2Texture("/textures/Moving_Characters_1.webp", {
+    side: "double",
+  });
 
   const curves = useCurveProgressStore((state) => state.curves);
 
