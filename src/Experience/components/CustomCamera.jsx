@@ -72,17 +72,19 @@ const CustomCamera = () => {
       -currentPointer.current.x * 0.1 + Math.PI,
       0,
     );
+
+    const zoom = useCameraStore.getState().zoom;
+
+    if (cameraRef.current && cameraRef.current.zoom !== zoom) {
+      cameraRef.current.zoom = zoom;
+      cameraRef.current.updateProjectionMatrix();
+    }
   });
 
   return (
     <>
       <group ref={cameraGroupRef}>
-        <PerspectiveCamera
-          makeDefault
-          fov={50}
-          ref={cameraRef}
-          zoom={zoom}
-        />{" "}
+        <PerspectiveCamera makeDefault fov={50} ref={cameraRef} />
       </group>
     </>
   );

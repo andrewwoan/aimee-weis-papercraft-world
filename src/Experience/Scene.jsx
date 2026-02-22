@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import MovingCharacters from "./models/Moving_Characters";
 import Winter from "./models/Scene_1_Winter";
@@ -11,11 +11,13 @@ const Scene = () => {
   return (
     <>
       <CustomCamera />
-      <MovingCharacters />
-      <Winter />
-      <Spring />
-      <Summer />
-      <Fall />
+      <Suspense>
+        <MovingCharacters />
+        <Winter />
+        <Spring />
+        <Summer />
+        <Fall />
+      </Suspense>
     </>
   );
 };

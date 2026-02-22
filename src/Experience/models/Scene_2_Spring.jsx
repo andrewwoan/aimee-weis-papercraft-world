@@ -5,19 +5,70 @@ Files: raw_assets\Spring.glb [1.47MB] > C:\Users\andre\My Stuff\VS Code Projects
 */
 
 import { useKTX2Texture } from "../utils/ktxLoader";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useGLTF } from "@react-three/drei";
 import { AnimateMesh } from "../components/AnimateMesh";
+import { useGSAP } from "@gsap/react";
+import { useCurveProgressStore } from "../../store/useCurveProgressStore";
+import { useFrame } from "@react-three/fiber";
+import gsap from "gsap";
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF(
     "/models/Scene_2_Spring-transformed.glb",
   );
 
-  const texture_1 = useKTX2Texture("/textures/Scene_2_Spring_1.webp");
-  const texture_2 = useKTX2Texture("/textures/Scene_2_Spring_2.webp");
-  const texture_3 = useKTX2Texture("/textures/Scene_2_Spring_3.webp");
-  const texture_4 = useKTX2Texture("/textures/Scene_2_Spring_4.webp");
+  const texture_1 = useKTX2Texture("/textures/Scene_2_Spring_1.webp", {
+    side: "double",
+  });
+  const texture_2 = useKTX2Texture("/textures/Scene_2_Spring_2.webp", {
+    side: "double",
+  });
+  const texture_3 = useKTX2Texture("/textures/Scene_2_Spring_3.webp", {
+    side: "double",
+  });
+  const texture_4 = useKTX2Texture("/textures/Scene_2_Spring_4.webp", {
+    side: "double",
+  });
+
+  const gateLeftRef = useRef();
+  const gateRightRef = useRef();
+  const prevProgress = useRef(0);
+
+  useFrame(() => {
+    const curr = useCurveProgressStore.getState().scrollProgress;
+    const prev = prevProgress.current;
+
+    if (prev < 0.335 && curr >= 0.335) {
+      gsap.to(gateLeftRef.current.rotation, {
+        y: Math.PI / 2,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      gsap.to(gateRightRef.current.rotation, {
+        y: -Math.PI / 2,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    }
+
+    if (prev >= 0.335 && curr < 0.335) {
+      gsap.to(gateLeftRef.current.rotation, {
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+      gsap.to(gateRightRef.current.rotation, {
+        y: 0,
+        duration: 0.6,
+        ease: "power2.out",
+      });
+    }
+
+    prevProgress.current = curr;
+  });
+
+  useFrame(() => {});
 
   return (
     <group {...props} dispose={null}>
@@ -27,11 +78,13 @@ export default function Model(props) {
         position={nodes.Scene_2_Spring_1_Baked.position}
       />
       <mesh
+        ref={gateRightRef}
         geometry={nodes.Scene_2_Spring_2_Gate_Right.geometry}
         material={texture_2}
         position={nodes.Scene_2_Spring_2_Gate_Right.position}
       />
       <mesh
+        ref={gateLeftRef}
         geometry={nodes.Scene_2_Spring_2_Gate_Left.geometry}
         material={texture_2}
         position={nodes.Scene_2_Spring_2_Gate_Left.position}

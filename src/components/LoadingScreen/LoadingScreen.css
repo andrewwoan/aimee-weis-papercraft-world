@@ -1,0 +1,93 @@
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  /* overflow: hidden; */
+  z-index: 99999999999999;
+}
+
+.quadrant {
+  position: absolute;
+  width: calc(50% + 30px);
+  height: calc(50% + 30px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: url(#torn);
+}
+
+.quadrant--tl {
+  top: -20px;
+  left: -20px;
+  background: #0d0d0d;
+  background-image: url("/images/red.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.quadrant--tr {
+  top: -20px;
+  right: -20px;
+  background: #1a1a1a;
+  background-image: url("/images/green.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.quadrant--bl {
+  bottom: -20px;
+  left: -20px;
+  background: #1a1a1a;
+  background-image: url("/images/blue.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.quadrant--br {
+  bottom: -20px;
+  right: -20px;
+  background: #0d0d0d;
+  background-image: url("/images/orange.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.enter-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+}
+
+.loading-bar-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  z-index: 10;
+}
+
+.loading-bar-fill {
+  position: relative; /* <-- move the anchor here */
+  height: 100%;
+  background: #ffffff;
+  transition: width 0.3s ease;
+}
+
+.loading-bar-indicator {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(50%, -50%);
+  width: 40px;
+  height: 40px;
+  background-image: url("/images/red.webp");
+  background-size: cover;
+  background-position: center;
+  pointer-events: none;
+}

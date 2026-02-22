@@ -7,6 +7,7 @@ Files: raw_assets\Scene_4_Fall.glb [2.05MB] > C:\Users\andre\My Stuff\VS Code Pr
 import { useKTX2Texture } from "../utils/ktxLoader";
 import React from "react";
 import { useGLTF } from "@react-three/drei";
+import { AnimateMesh } from "../components/AnimateMesh";
 
 export default function Model(props) {
   const { nodes, materials } = useGLTF("/models/Scene_4_Fall-transformed.glb");
@@ -27,46 +28,106 @@ export default function Model(props) {
         material={texture_2}
         position={nodes.Scene_4_Fall_2_Baked.position}
       />
-      <mesh
-        geometry={nodes.Scene_4_Fall_2_Left_Arm.geometry}
-        material={texture_2}
+
+      <AnimateMesh
+        axis={"z"}
+        offset={0.3}
+        amplitude={0.9}
+        speed={3}
         position={nodes.Scene_4_Fall_2_Left_Arm.position}
-      />
-      <mesh
-        geometry={nodes.Scene_4_Fall_2_Right_Arm.geometry}
-        material={texture_2}
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_2_Left_Arm.geometry}
+          material={texture_2}
+        />
+      </AnimateMesh>
+
+      <AnimateMesh
+        axis={"z"}
+        offset={0.3}
+        amplitude={0.9}
+        speed={3}
         position={nodes.Scene_4_Fall_2_Right_Arm.position}
-      />
-      <mesh
-        geometry={nodes.Scene_4_Fall_2_Fire.geometry}
-        material={texture_2}
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_2_Right_Arm.geometry}
+          material={texture_2}
+        />
+      </AnimateMesh>
+
+      {/* <AnimateMesh
+        axis={"y"}
+        offset={0.3}
+        amplitude={0.3}
+        speed={1.2}
+        base={1}
+        property={"scale"}
         position={nodes.Scene_4_Fall_2_Fire.position}
-      />
-      <mesh
-        geometry={nodes.Scene_4_Fall_2_Baked_guoba.geometry}
-        material={texture_2}
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_2_Fire.geometry}
+          material={texture_2}
+        />
+      </AnimateMesh> */}
+      <AnimateMesh
+        axis={"y"}
+        offset={0.3}
+        amplitude={0.06}
+        speed={5}
+        base={1}
+        property={"scale"}
         position={nodes.Scene_4_Fall_2_Baked_guoba.position}
-      />
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_2_Baked_guoba.geometry}
+          material={texture_2}
+        />
+      </AnimateMesh>
+
       <mesh
         geometry={nodes.Scene_4_Fall_3_Baked.geometry}
         material={texture_3}
         position={nodes.Scene_4_Fall_3_Baked.position}
       />
-      <mesh
-        geometry={nodes.Scene_4_Fall_3_Cat_Head.geometry}
-        material={texture_3}
+      <AnimateMesh
+        axis={"z"}
+        offset={0.3}
+        amplitude={0.3}
+        speed={1.2}
         position={nodes.Scene_4_Fall_3_Cat_Head.position}
-      />
-      <mesh
-        geometry={nodes.Scene_4_Fall_3_Bakedbunnyhead001.geometry}
-        material={texture_3}
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_3_Cat_Head.geometry}
+          material={texture_3}
+        />
+      </AnimateMesh>
+
+      <AnimateMesh
+        axis={"z"}
+        offset={0.3}
+        amplitude={0.3}
+        speed={1.2}
         position={nodes.Scene_4_Fall_3_Bakedbunnyhead001.position}
-      />
-      <mesh
-        geometry={nodes.Scene_4_Fall_3_Bakedbunnyhead.geometry}
-        material={texture_3}
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_3_Bakedbunnyhead001.geometry}
+          material={texture_3}
+        />
+      </AnimateMesh>
+
+      <AnimateMesh
+        axis={"z"}
+        offset={1.3}
+        amplitude={0.3}
+        speed={1.2}
         position={nodes.Scene_4_Fall_3_Bakedbunnyhead.position}
-      />
+      >
+        <mesh
+          geometry={nodes.Scene_4_Fall_3_Bakedbunnyhead.geometry}
+          material={texture_3}
+        />
+      </AnimateMesh>
+
       <mesh
         geometry={nodes.Scene_4_Fall_3_Baked002.geometry}
         material={texture_3}
