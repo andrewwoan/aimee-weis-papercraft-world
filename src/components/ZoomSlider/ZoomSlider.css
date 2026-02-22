@@ -1,8 +1,64 @@
-.zoom-slider {
+.zoom-slider-wrapper {
   position: fixed;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 200px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   z-index: 9999999;
+  background: transparent;
+  padding: 6px 10px;
+}
+
+.zoom-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Track */
+.zoom-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 200px;
+  height: 4px;
+  background: #ffffff;
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+.zoom-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 7px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+}
+
+.zoom-slider::-moz-range-thumb {
+  width: 10px;
+  height: 20px;
+  background: #ffffff;
+  border-radius: 0;
+  cursor: pointer;
+  border: none;
+}
+
+.zoom-slider::-moz-range-track {
+  height: 4px;
+  background: #ddd;
+  border-radius: 0;
+}
+
+.size-6 {
+  width: 1.4rem;
+  height: 1.4rem;
 }

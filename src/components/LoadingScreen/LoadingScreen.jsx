@@ -24,6 +24,12 @@ const LoadingScreen = () => {
   useGSAP(() => {
     if (!revealed) return;
 
+    gsap.to(loadingRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power1.out",
+    });
+
     gsap.to(tlRef.current, {
       top: "-100%",
       left: "-100%",
@@ -63,16 +69,18 @@ const LoadingScreen = () => {
         <div ref={blRef} className="quadrant quadrant--bl" />
         <div ref={brRef} className="quadrant quadrant--br" />
 
-        <div ref={loadingRef} className="loading-bar-container">
-          <div
-            className="loading-bar-fill"
-            style={{ width: `${maxProgress}%` }}
-          />
-          <div
-            className="loading-bar-indicator"
-            style={{ left: `${maxProgress}%` }}
-          />
-        </div>
+        {!revealed && (
+          <div ref={loadingRef} className="loading-bar-container">
+            <div
+              className="loading-bar-fill"
+              style={{ width: `${maxProgress}%` }}
+            />
+            <div
+              className="loading-bar-indicator"
+              style={{ left: `${maxProgress}%` }}
+            />
+          </div>
+        )}
 
         {isLoaded && !revealed && (
           <button className="enter-button" onClick={() => setRevealed(true)}>

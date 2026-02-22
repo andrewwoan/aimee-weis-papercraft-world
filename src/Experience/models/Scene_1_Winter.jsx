@@ -80,10 +80,10 @@ export default function Model(props) {
         geometry={nodes.Scene_1_Winter_3_Bird_Baked.geometry}
         material={texture_3}
       />
-      <mesh
+      {/* <mesh
         geometry={nodes.Scene_1_Winter_3_Chat_Box_Scene_1_Winter_3.geometry}
         material={texture_3}
-      />
+      /> */}
       <AnimateMesh axis={"z"} amplitude={0.01}>
         <mesh
           geometry={nodes.Scene_1_Winter_3_Note_1.geometry}
@@ -103,7 +103,7 @@ export default function Model(props) {
           material={texture_3}
         />
       </AnimateMesh>
-
+      {/* 
       <mesh
         geometry={nodes.Scene_1_Winter_3_Hello_Text.geometry}
         material={texture_3}
@@ -115,7 +115,7 @@ export default function Model(props) {
       <mesh
         geometry={nodes.Scene_1_Winter_3_Welcome_Baked.geometry}
         material={texture_3}
-      />
+      /> */}
       <mesh
         geometry={nodes.Scene_1_Winter_3_Flame_3.geometry}
         material={texture_3}
