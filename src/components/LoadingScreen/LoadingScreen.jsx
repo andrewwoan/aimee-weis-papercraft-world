@@ -57,7 +57,7 @@ const LoadingScreen = () => {
     });
   }, [revealed]);
 
-  const isLoaded = !active && maxProgress === 100;
+  const isLoaded = maxProgress === 100;
 
   if (gone) return null;
 
