@@ -53,12 +53,46 @@
   background-position: center;
 }
 
-.enter-button {
+.title {
   position: absolute;
-  top: 50%;
+  top: 41%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
+  font-family: "Slime Box";
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(230, 230, 230);
+  font-size: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+@media (max-width: 764px) {
+  .title {
+    font-size: 30px;
+  }
+}
+
+.enter-button {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  font-family: "Slime Box";
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: rgb(230, 230, 230);
+  font-size: 28px;
+}
+
+.enter-button:hover {
+  cursor: pointer;
 }
 
 .loading-bar-container {

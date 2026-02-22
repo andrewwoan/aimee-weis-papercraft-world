@@ -70,16 +70,19 @@ const LoadingScreen = () => {
         <div ref={brRef} className="quadrant quadrant--br" />
 
         {!revealed && (
-          <div ref={loadingRef} className="loading-bar-container">
-            <div
-              className="loading-bar-fill"
-              style={{ width: `${maxProgress}%` }}
-            />
-            <div
-              className="loading-bar-indicator"
-              style={{ left: `${maxProgress}%` }}
-            />
-          </div>
+          <>
+            <div ref={loadingRef} className="loading-bar-container">
+              <div
+                className="loading-bar-fill"
+                style={{ width: `${maxProgress}%` }}
+              />
+              <div
+                className="loading-bar-indicator"
+                style={{ left: `${maxProgress}%` }}
+              />
+            </div>
+            <h1 className="title">Aimee Wei's PaperCraft World</h1>
+          </>
         )}
 
         {isLoaded && !revealed && (

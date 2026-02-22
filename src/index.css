@@ -24,6 +24,7 @@ html {
   /* overflow: hidden; */
   overflow-y: auto;
   overflow-x: hidden;
+  font-family: "Slime Box";
 }
 
 /* html {
@@ -34,3 +35,13 @@ html {
 html::-webkit-scrollbar {
   display: none;
 } */
+
+@font-face {
+  font-family: "Slime Box";
+  src:
+    url("/fonts/SlimeBox.woff2") format("woff2"),
+    url("/fonts/SlimeBox.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
