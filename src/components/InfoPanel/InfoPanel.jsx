@@ -39,7 +39,16 @@ const InfoPanel = () => {
           <div className="info-box-title">Credits:</div>
 
           <p className="info-intro">
-            This website was built for a Codrops article and{" "}
+            This website was built for a
+            <a
+              href="https://tympanus.net/codrops/2026/05/30/the-future-of-emotional-technology-comfort-websites-for-growth-and-self-awareness/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {" "}
+              Codrops article{" "}
+            </a>
+            and{" "}
             <a
               href="https://www.youtube.com/watch?v=AD01pTr3gvw&feature=youtu.be"
               target="_blank"
