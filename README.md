@@ -2,7 +2,7 @@
 
 **[Live site](https://aimees-papercraft-world.com/)** | **[Article - Coming Soon]()** | **[Tutorial](https://youtu.be/AD01pTr3gvw)**
 
-This repo contains code of Aimee's Papercraft Portfolio for a Codrops article and YouTube tutorial!! Name and details are anonymoized for privacy. It's a portfolio website created with [Blender](https://www.blender.org/), [Three.js](https://threejs.org/), and [Krita](https://krita.org/en/). UI inspired by [Xianyao Wei's design](https://github.com/wehwayne2/lucys-bedroom-interface).
+This repo contains code of Aimee's Papercraft Portfolio for a Codrops article and YouTube tutorial!! Name and details are anonymoized for privacy. It's a portfolio website created with [Blender](https://www.blender.org/), [Three.js](https://threejs.org/), and [Krita](https://krita.org/en/).
 
 ![Page screenshot](public/media/og-image.webp?raw=true "Page Screenshot")
 
@@ -13,7 +13,6 @@ This repo contains code of Aimee's Papercraft Portfolio for a Codrops article an
 - [Chibi Anime Facial Expression References](https://www.animeoutline.com/chibi-anime-facial-expressions-drawing-tutorial/)
 - [Deer reference image](https://feelincrafty.wordpress.com/wp-content/uploads/2011/11/winterpapercut-finished3.jpg)
 - [Winter Inspiration](https://www.amazon.com/Laeacco-Christmas-Grassland-Paper-Cut-Background/dp/B07J57237R?th=1)
-- [Xianyao Wei's UI Design](https://github.com/wehwayne2/lucys-bedroom-interface)
 - [Joshua's World Inspiration](https://www.awwwards.com/sites/joshuas-world)
 - [Bilal Show Inspiration](https://bilal.show/)
 - [Cabin smoke Inspiration](https://www.pinterest.com/pin/521502831860325373/)
