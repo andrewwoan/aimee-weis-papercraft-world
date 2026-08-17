@@ -1,4 +1,4 @@
-# 📄 Aimee Papercraft Portfolio World ✂️
+# 📄 Aimee Rain's Papercraft Portfolio World ✂️
 
 **[Live site](https://aimees-papercraft-world.com/)** | **[Article - Coming Soon]()** | **[Tutorial](https://youtu.be/AD01pTr3gvw)**
 
