@@ -90,7 +90,7 @@ const LoadingScreen = () => {
                 }}
               />
             </div>
-            <h1 className="title">Aimee Wei's Papercraft World</h1>
+            <h1 className="title">Aimee Rain's Papercraft World</h1>
 
             {/* Lol don't do this this is cringe */}
             <div
