@@ -69,26 +69,7 @@ const InfoPanel = () => {
             hi!
           </p>
 
-          <ul className="info-list">
-            {/* <li>
-              UI Design inspired by
-              <a
-                href="https://github.com/wehwayne2/lucys-bedroom-interface"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Xianyao Wei
-              </a>
-              .
-            </li>
-            <li>
-              3D curve system inspired by{" "}
-              <a href="https://github.com" target="_blank" rel="noreferrer">
-                this open source repo
-              </a>
-              .
-            </li> */}
-          </ul>
+          <ul className="info-list"></ul>
         </div>
       </div>
     </div>
